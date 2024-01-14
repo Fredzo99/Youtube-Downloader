@@ -1,118 +1,71 @@
 # YouTube Downloader
 
-[![Build Status](https://github.com/ytdl-org/youtube-dl/workflows/CI/badge.svg)](https://github.com/ytdl-org/youtube-dl/actions?query=workflow%3ACI)
-![](https://img.shields.io/github/license/Athlon1600/youtube-downloader.svg)
-![](https://img.shields.io/packagist/dt/Athlon1600/youtube-downloader.svg)
-![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/y/athlon1600/youtube-downloader)
-![](https://img.shields.io/github/last-commit/Athlon1600/youtube-downloader.svg)
+Welcome to the YouTube Downloader, a PHP-based script inspired by the popular youtube-dl Python package. While there are other PHP-based YouTube downloaders on the internet, many of them are outdated or depend on youtube-dl itself. This script aims to provide a simple and up-to-date solution for downloading YouTube videos using pure PHP, without the need for heavy dependencies.
 
-This project was inspired by a very popular youtube-dl python package:  
-https://github.com/ytdl-org/youtube-dl
+## Overview
 
-Yes, there are multiple other PHP-based youtube downloaders on the Internet, 
-but most of them haven't been updated in years, or they depend on youtube-dl itself.  
+This YouTube Downloader script is designed to download YouTube videos using PHP, without relying on external JavaScript interpreters or shell commands. It is an alternative for users who prefer a PHP-only solution and want to avoid outdated or complex dependencies.
 
-Pure PHP-based youtube downloaders that work, and are **kept-up-to date** just do not exist.
+## Features
 
-This script uses no Javascript interpreters, no calls to shell... nothing but pure PHP with no heavy dependencies either.
+- **Pure PHP Implementation**: The script is implemented in pure PHP, with no reliance on JavaScript interpreters or shell commands.
 
-![](https://i.imgur.com/YT39KZ5.png)
+- **Up-to-Date**: Unlike some other PHP-based YouTube downloaders, this script is actively maintained to ensure compatibility with the latest YouTube changes.
 
-That's all there is to it!
+## Legal Disclaimer
 
-## :warning: Legal Disclaimer
+⚠️ **Legal Disclaimer**: This program is intended for personal use only. Downloading copyrighted material without permission violates YouTube's terms of services. Users of this program are solely responsible for any copyright violations. The developers are not accountable for any misuse or violation of YouTube's terms of services.
 
-This program is for personal use only. 
-Downloading copyrighted material without permission is against [YouTube's terms of services](https://www.youtube.com/static?template=terms). 
-By using this program, you are solely responsible for any copyright violations. 
-We are not responsible for people who attempt to use this program in any way that breaks YouTube's terms of services.
+## Getting Started
 
-## Installation
+To use the YouTube Downloader script, follow these steps:
 
-Recommended way of installing this is via [Composer](http://getcomposer.org):
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Fredzo99/Youtube-Downloader.git
+   ```
 
-```bash
-composer require athlon1600/youtube-downloader "^4.0"
-```
+2. Navigate to the project directory:
+   ```bash
+   cd Youtube-Downloader
+   ```
 
-## Example usage
+3. Run the script with your PHP environment:
+   ```bash
+   php downloader.php
+   ```
 
-```php
-use YouTube\YouTubeDownloader;
-use YouTube\Exception\YouTubeException;
+## Usage
 
-$youtube = new YouTubeDownloader();
+1. Execute the script.
+2. Enter the YouTube video URL when prompted.
+3. The script will download the video to your local machine.
 
-try {
-    $downloadOptions = $youtube->getDownloadLinks("https://www.youtube.com/watch?v=aqz-KE-bpKQ");
+## Contributing
 
-    if ($downloadOptions->getAllFormats()) {
-        echo $downloadOptions->getFirstCombinedFormat()->url;
-    } else {
-        echo 'No links found';
-    }
+Feel free to contribute to the YouTube Downloader script by making edits or commits to enhance functionality or fix bugs. Follow these steps:
 
-} catch (YouTubeException $e) {
-    echo 'Something went wrong: ' . $e->getMessage();
-}
-```
+1. Fork the repository.
+2. Create a new branch for your changes:
+   ```bash
+   git checkout -b feature/new-feature
+   ```
+3. Make your changes and commit them:
+   ```bash
+   git commit -m "Add new feature"
+   ```
+4. Push to the branch:
+   ```bash
+   git push origin feature/new-feature
+   ```
+5. Create a pull request.
 
-`getDownloadLinks` method returns a `DownloadOptions` type object, which holds an array of stream links - some that are audio-only, and some that are both audio and video combined into one.
+## License
 
-For typical usage, you are probably interested in dealing with combined streams, for that case, there is the `getCombinedFormats` method.
+This project is licensed under the [MIT License](LICENSE).
 
-## Other Features
+## Contact
 
-- Stream YouTube videos directly from your server:
+If you have any questions, feedback, or suggestions, feel free to reach out to Fredzo99.
 
-```php
-$youtube = new \YouTube\YouTubeStreamer();
-$youtube->stream('https://r4---sn-n4v7knll.googlevideo.com/videoplayback?...');
-```
-
-- Pass in your own cookies/user-agent
-
-If you try downloading age-restricted videos, YouTube will ask you to login. The only way to make this work, is to login to your YouTube account in your own web-browser, export those newly set cookies from your browser into a file, and then pass it all to youtube-downloader for use.
-
-```php
-$youtube = new YouTubeDownloader();
-$youtube->getBrowser()->setCookieFile('./your_cookies.txt');
-$youtube->getBrowser()->setUserAgent('Opera 7.6');
-```
-
-See also:  
-https://github.com/ytdl-org/youtube-dl/blob/master/README.md#how-do-i-pass-cookies-to-youtube-dl
-
-- Before you continue to YouTube...
-
-Depending on your region, you might be force redirected to a [page](https://unblockvideos.com/images/before-you-continue-cookies.jpg) that asks you to agree to Google's cookie policy.
-You can programmatically agree to those terms, and bypass that warning permanently via `consentCookies` method on your Browser instance. Example:  
-```php
-$youtube = new YouTubeDownloader();
-$youtube->getBrowser()->consentCookies();
-```
-
-
-## How does it work
-
-A more detailed explanation on how to download videos from YouTube will be written soon.
-For now, there is this:  
-
-https://github.com/Athlon1600/youtube-downloader/pull/25#issuecomment-439373506
-
-## Miscellaneous Links
-
-- https://gitlab.futo.org/videostreaming/plugins/youtube
-- https://tyrrrz.me/blog/reverse-engineering-youtube-revisited
-- https://github.com/TeamNewPipe/NewPipeExtractor/blob/d83787a5ca308c4ca4e86e63a8b63c5e7c4708d6/extractor/src/main/java/org/schabi/newpipe/extractor/services/youtube/extractors/YoutubeStreamExtractor.java
-- https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/extractor/youtube.py
-- https://github.com/yt-dlp/yt-dlp
-
-## To-do list
-
-- Allow downloading of private videos.
-- Find a way to get around YouTube's throttling system that limits downloading speed to less than 100 kb/s for most most videos now...
-- Add ability to solve YouTube Captcha and avoid `HTTP 429 Too Many Requests` errors.
-- Add ability to download video and audio streams separately, and merge the two together using ffmpeg. Just like `youtube-dl` does!  
-- Optional command that finds ALL video formats.
-- ~~Fetch additional metadata about the video without using YouTube API.~~
+Thank you for using the YouTube Downloader!
